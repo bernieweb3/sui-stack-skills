@@ -1,0 +1,70 @@
+schema_version: 1
+layer: L0
+purpose: "Lightweight cognition conflict detection for contradictions, tensions, ambiguity, and drift signals."
+
+conflict_taxonomy:
+  hard_contradiction: "Two active cognition items cannot both govern the same task."
+  soft_tension: "Two items can coexist but require explicit tradeoff handling."
+  semantic_ambiguity: "A term or commitment can be interpreted in incompatible ways."
+  drift_signal: "Implementation appears to reinterpret or weaken active cognition."
+
+severity:
+  low:
+    meaning: "Document in checksum; no escalation unless repeated."
+    resolution_required: false
+  medium:
+    meaning: "Resolve or document tradeoff before completion."
+    resolution_required: true
+  high:
+    meaning: "Stop work; architecture review required."
+    resolution_required: true
+  critical:
+    meaning: "Stop work; architecture and audit review required."
+    resolution_required: true
+
+detection_logic:
+  - "Compare active commitments and invariants loaded by the route."
+  - "Check whether the implementation weakens a foundational or critical item."
+  - "Check whether a rejected pattern appears as an implementation shortcut."
+  - "Check whether a compressed context omits an item touched by the task."
+  - "Record soft tensions in the checksum; record recurring or unresolved tensions here."
+
+conflicts:
+  - id: lightweight-runtime-vs-stability-metadata
+    status: active
+    type: soft_tension
+    severity: medium
+    commitment_a: minimum-viable-cognition
+    commitment_b: lifecycle-semantics-stay-lightweight
+    tension: "Adding stability metadata can reduce drift, but too much metadata can make the runtime feel bureaucratic."
+    resolution_required: true
+    resolution: "Add grouped registries only when they are runtime surfaces; keep weighting in lifecycle policy."
+    review_trigger: "Any proposal to add another cognition governance folder or generated policy layer."
+
+  - id: object-ownership-vs-shared-object-throughput
+    status: active
+    type: soft_tension
+    severity: medium
+    commitment_a: sui-object-first-design
+    commitment_b: shared-object-parallelism
+    tension: "Sui shared objects can support coordination but can also introduce contention and weaken ownership clarity."
+    resolution_required: true
+    resolution: "Require explicit shared-object rationale, contention analysis, and PTB boundary explanation."
+    review_trigger: "Move or PTB task introduces shared objects for throughput or coordination."
+
+  - id: skill-knowledge-vs-hidden-policy
+    status: active
+    type: semantic_ambiguity
+    severity: low
+    commitment_a: skills-are-knowledge-not-policy
+    commitment_b: no-policy-hidden-in-prose
+    tension: "Skill files may contain best-practice language that sounds mandatory."
+    resolution_required: false
+    resolution: "Only behavior referenced by L0, harnesses, constitutions, runtime, or review contracts is mandatory."
+    review_trigger: "A skill edit adds must/never language."
+
+resolution_semantics:
+  - "Resolved hard contradictions require a decision log entry."
+  - "Soft tensions can be resolved in a checksum unless they recur or change architecture."
+  - "Semantic ambiguity should be clarified in the smallest governing file."
+  - "Critical conflicts block completion until architecture and audit reviewers accept the resolution."

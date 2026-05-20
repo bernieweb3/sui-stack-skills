@@ -1,0 +1,82 @@
+schema_version: 1
+layer: L5
+contracts:
+  - id: architecture-review
+    applies_to:
+      - cognition/**
+      - runtime/**
+      - constitutions/**
+      - harnesses/**
+      - agent_roles/**
+    required_checks:
+      - "Does the change preserve `minimum-viable-cognition`?"
+      - "Does it reduce drift or only add structure?"
+      - "Does any L0 change have decision-log rationale?"
+      - "Does the active checksum show drift assessment `none` or `low`?"
+      - "Did compressed context preserve all critical and route-relevant high-weight cognition?"
+      - "Are unresolved medium-or-higher conflicts absent or explicitly accepted?"
+      - "Are reasoning snapshots concise and decision-relevant?"
+      - "Were drift metrics updated only for real drift signals?"
+      - "Was the cognition budget respected or explicitly escalated?"
+      - "Were promotion, demotion, archive, or prune actions justified by resilience policy?"
+      - "Did boundary isolation inject only relevant cognition while preserving safety-critical context?"
+      - "Were human cognition anchors left intact or approved by the human authority?"
+      - "Was drift recovery completed for any medium-or-higher drift event?"
+      - "Are superseded, deprecated, experimental, and rejected items handled according to lifecycle policy?"
+      - "Were freshness flags respected before implementation?"
+      - "Can an agent use this without custom tooling?"
+    blockers:
+      - "New mandatory behavior hidden outside L0, harnesses, constitutions, or review contracts."
+      - "New folder/file fragmentation without runtime value."
+      - "Medium or high checksum drift left unresolved."
+      - "Medium-or-higher conflict left unresolved."
+      - "Critical cognition omitted from compressed context for a relevant task."
+      - "Reasoning snapshot stores verbose reasoning instead of structured tradeoff shape."
+      - "Active cognition conflicts without a decision log."
+      - "Human-anchored cognition weakened without human override."
+      - "Budget overflow handled by dropping critical cognition."
+      - "Drift recovery skipped after high or critical drift."
+
+  - id: move-safety-review
+    applies_to:
+      - skills/domain/sui/**
+      - harnesses/move.yaml
+    required_checks:
+      - "Object ownership is explicit."
+      - "Capability authority is preserved."
+      - "Shared object contention is acknowledged when relevant."
+      - "Foundational invariant tier is not weakened."
+      - "Checksum includes touched Move invariants."
+      - "Tests or verification blockers are documented."
+    blockers:
+      - "Sender-address admin checks as default authorization."
+      - "Unexplained shared object conversion."
+
+  - id: transaction-review
+    applies_to:
+      - harnesses/ptb.yaml
+      - harnesses/frontend-transaction.yaml
+      - skills/domain/infrastructure/sui-infrastructure/dapp-kit.md
+    required_checks:
+      - "PTB atomicity boundary is documented."
+      - "Wallet rejection and RPC failure states are handled."
+      - "Transaction finality is not faked."
+      - "Checksum shows no silent PTB atomicity reinterpretation."
+    blockers:
+      - "Dependent value movement split across transactions without decision rationale."
+      - "Silent network switching."
+
+  - id: financial-review
+    applies_to:
+      - skills/architecture/system-design/system-design/defi/**
+      - harnesses/financial-safety.yaml
+    required_checks:
+      - "Value-conservation assumptions are stated."
+      - "Oracle freshness and deviation assumptions are stated."
+      - "Pause and upgrade authority are identified."
+      - "Optimization does not weaken solvency or authorization."
+      - "Freshness-sensitive oracle, SDK, or RPC assumptions were refreshed before use."
+      - "Checksum drift is none or low."
+    blockers:
+      - "Safety checks removed for gas or latency without audit approval."
+      - "No failure-path reasoning for fund-moving flows."

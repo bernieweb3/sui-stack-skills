@@ -1,0 +1,39 @@
+schema_version: 1
+layer: L0
+purpose: "Patterns rejected by the framework with rationale so agents do not reintroduce them."
+rejected_patterns:
+  - id: giant-policy-runtime
+    status: rejected
+    freshness: stable
+    owner: architecture
+    pattern: "A large autonomous policy engine that interprets many fragmented rules before every task."
+    rejected_because: "It increases token overhead and maintenance burden without proving drift reduction."
+    acceptable_alternative: "Small YAML harnesses plus human-readable constitutions loaded by task type."
+    last_reviewed: "2026-05-20"
+
+  - id: symbolic-cognition-graph
+    status: rejected
+    freshness: stable
+    owner: architecture
+    pattern: "A graph database or symbolic cognition model for architectural memory."
+    rejected_because: "The MVP needs durable commitments and invariants, not a new knowledge representation system."
+    acceptable_alternative: "Stable YAML registries with append-only decision logs."
+    last_reviewed: "2026-05-20"
+
+  - id: skills-as-constitutional-law
+    status: rejected
+    freshness: stable
+    owner: planner
+    pattern: "Embedding mandatory behavioral constraints inside every skill document."
+    rejected_because: "Agents will over-retrieve and miss the actual constraints; skill documents become bloated and hard to audit."
+    acceptable_alternative: "Keep skills as domain knowledge; use `constitutions/` and `harnesses/` for behavioral constraints."
+    last_reviewed: "2026-05-20"
+
+  - id: yaml-fragmentation
+    status: rejected
+    freshness: stable
+    owner: architecture
+    pattern: "One YAML file per tiny rule, invariant, role, or skill."
+    rejected_because: "Folder explosion makes the framework harder to use and increases context routing failure."
+    acceptable_alternative: "Few grouped registries with stable IDs."
+    last_reviewed: "2026-05-20"

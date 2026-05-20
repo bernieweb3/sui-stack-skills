@@ -1,0 +1,36 @@
+schema_version: 1
+layer: L0
+purpose: "Known architectural tradeoffs that should remain visible until resolved."
+tradeoffs:
+  - id: token-overhead-vs-drift-reduction
+    status: active
+    freshness: refresh_required
+    owner: architecture
+    question: "How much L0 and harness context should be injected for medium-sized tasks?"
+    current_position: "Load commitments, invariants, rejected patterns, and one task harness. Avoid loading the full RFC unless architecture work is requested."
+    risk_if_overloaded: "Gemini Flash and other fast models may summarize away the constraints."
+    risk_if_underloaded: "Agents may optimize locally while violating persistent intent."
+    next_review_trigger: "After three real implementation sessions using the runtime flow."
+    last_reviewed: "2026-05-20"
+
+  - id: strictness-vs-agent-velocity
+    status: active
+    freshness: stable
+    owner: planner
+    question: "Which changes require architecture-agent approval in multi-agent work?"
+    current_position: "Only active L0 commitments, invariants, financial safety boundaries, and package-level Move object models require escalation."
+    risk_if_too_strict: "Simple work slows down and agents stop using the framework."
+    risk_if_too_loose: "Cognitive state becomes advisory text instead of operational memory."
+    next_review_trigger: "When two agents need to modify the same domain boundary."
+    last_reviewed: "2026-05-20"
+
+  - id: human-review-vs-automated-checks
+    status: active
+    freshness: refresh_required
+    owner: audit
+    question: "Which framework checks should be automated first?"
+    current_position: "Start with text-level validation for active IDs, required YAML fields, and links. Defer semantic policy engines."
+    risk_if_overbuilt: "The repo becomes infrastructure-heavy without improving engineering outcomes."
+    risk_if_underbuilt: "Humans may forget to update decision logs."
+    next_review_trigger: "After the first recurring failure to update L0 state."
+    last_reviewed: "2026-05-20"

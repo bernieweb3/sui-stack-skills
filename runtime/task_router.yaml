@@ -1,0 +1,129 @@
+schema_version: 1
+layer: L2
+default_load:
+  cognitive_state:
+    - cognition/state/architectural_commitments.yaml
+    - cognition/state/invariants.yaml
+    - cognition/state/lifecycle_policy.yaml
+    - cognition/state/resilience_policy.yaml
+    - cognition/state/compressed_context.yaml
+    - cognition/state/cognitive_checksums.yaml
+    - cognition/state/conflict_registry.yaml
+    - cognition/state/drift_metrics.yaml
+  constitution:
+    - constitutions/core.yaml
+  runtime_profile:
+    - runtime/flash_context_profile.yaml
+routes:
+  - id: move-module-change
+    match:
+      paths:
+        - "sources/**/*.move"
+        - "Move.toml"
+        - "skills/domain/sui/**"
+      keywords:
+        - move
+        - object
+        - capability
+        - shared object
+        - package upgrade
+    primary_harness: harnesses/move.yaml
+    checksum_focus:
+      compressed_context: sui-transaction-compressed
+      resilience_budget: gemini_flash
+      visibility_scope: move-agent
+      drift_metrics:
+        - invariant-retention-rate
+        - rejected-pattern-reintroduction
+      commitments:
+        - sui-object-first-design
+      invariants:
+        - no-sui-account-model-drift
+
+  - id: ptb-transaction-change
+    match:
+      keywords:
+        - PTB
+        - programmable transaction
+        - signAndExecute
+        - sponsored transaction
+        - dry-run
+    primary_harness: harnesses/ptb.yaml
+    secondary_harnesses:
+      - harnesses/frontend-transaction.yaml
+    checksum_focus:
+      compressed_context: sui-transaction-compressed
+      resilience_budget: gemini_flash
+      visibility_scope: move-agent
+      drift_metrics:
+        - invariant-retention-rate
+        - compression-effectiveness
+      commitments:
+        - sui-object-first-design
+      invariants:
+        - ptb-atomicity-visible
+
+  - id: frontend-wallet-change
+    match:
+      paths:
+        - "apps/**"
+        - "frontend/**"
+        - "skills/implementation/frontend/**"
+      keywords:
+        - wallet
+        - dapp-kit
+        - transaction UI
+    primary_harness: harnesses/frontend-transaction.yaml
+    checksum_focus:
+      compressed_context: sui-transaction-compressed
+      resilience_budget: gemini_flash
+      visibility_scope: frontend-agent
+      drift_metrics:
+        - semantic-reinterpretation-frequency
+      invariants:
+        - ptb-atomicity-visible
+
+  - id: financial-protocol-change
+    match:
+      keywords:
+        - defi
+        - swap
+        - oracle
+        - liquidation
+        - liquidity
+        - treasury
+        - pause
+    primary_harness: harnesses/financial-safety.yaml
+    checksum_focus:
+      compressed_context: sui-transaction-compressed
+      resilience_budget: default
+      visibility_scope: audit-agent
+      drift_metrics:
+        - unsafe-refactor-frequency
+        - architectural-consistency-score
+      invariants:
+        - financial-safety-before-optimization
+
+  - id: repository-architecture-change
+    match:
+      paths:
+        - "cognition/**"
+        - "harnesses/**"
+        - "constitutions/**"
+        - "runtime/**"
+        - "agent_roles/**"
+        - "review/**"
+    primary_harness: runtime/repository-architecture-harness.yaml
+    checksum_focus:
+      compressed_context: framework-core-compressed
+      resilience_budget: default
+      visibility_scope: architecture-agent
+      drift_metrics:
+        - cognition-entropy-growth
+        - architectural-consistency-score
+      commitments:
+        - minimum-viable-cognition
+        - lifecycle-semantics-stay-lightweight
+      invariants:
+        - no-commitment-loss
+        - no-policy-hidden-in-prose

@@ -1,0 +1,36 @@
+schema_version: 1
+layer: L0
+purpose: "Specific reversions that are forbidden unless a new decision explicitly supersedes them."
+forbidden_reversions:
+  - id: do-not-return-to-flat-knowledge-repo
+    status: active
+    freshness: stable
+    owner: architecture
+    forbidden_change: "Collapse `cognition/`, `harnesses/`, `constitutions/`, `runtime/`, and `review/` back into a flat knowledge-only skill collection."
+    rationale: "The framework exists to provide behavioral infrastructure and persistent cognition, not only reference material."
+    permitted_only_if:
+      - "A decision log entry proves the operational model failed."
+      - "Replacement mechanism preserves L0 commitments and invariant visibility."
+    last_reviewed: "2026-05-20"
+
+  - id: do-not-hide-rationale-in-skills
+    status: active
+    freshness: stable
+    owner: planner
+    forbidden_change: "Move architectural rationale that governs future behavior into scattered skill prose only."
+    rationale: "Future agents need a small runtime surface for intent, not buried explanations."
+    permitted_only_if:
+      - "The rationale remains indexed from L0 state."
+      - "The relevant harness or constitution points to the governing decision."
+    last_reviewed: "2026-05-20"
+
+  - id: do-not-remove-capability-first-move-guidance
+    status: active
+    freshness: foundational
+    owner: move
+    forbidden_change: "Replace capability-first Sui access control guidance with sender-address checks as the default pattern."
+    rationale: "Capabilities are an active Sui safety invariant in this framework."
+    permitted_only_if:
+      - "A concrete exception documents why capability objects are impossible or inappropriate."
+      - "Audit review accepts the exception."
+    last_reviewed: "2026-05-20"

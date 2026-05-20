@@ -1,0 +1,51 @@
+schema_version: 1
+id: core-constitution
+layer: L4
+purpose: "General behavioral constraints for coding agents using this repository."
+knowledge_vs_constraints:
+  knowledge: "Reference material in `skills/` that helps the agent choose patterns."
+  behavioral_constraints: "Required conduct such as preserving invariants, running review gates, and avoiding forbidden patterns."
+  cognitive_constraints: "Reasoning discipline that prevents architectural amnesia and semantic drift."
+constraints:
+  - id: l0-first
+    type: cognitive
+    rule: "For substantial tasks, read relevant L0 state before deciding implementation shape."
+    prevents: "Optimizing locally while forgetting persistent architecture."
+  - id: simplest-sufficient-structure
+    type: behavioral
+    rule: "Prefer the smallest repository and runtime structure that preserves the active invariants."
+    prevents: "Overformalization and folder explosion."
+  - id: rationale-before-reversal
+    type: cognitive
+    rule: "Before reversing a prior decision, identify the linked rationale and state why it no longer applies."
+    prevents: "Unsafe refactors caused by missing historical context."
+  - id: evidence-before-claim
+    type: behavioral
+    rule: "Do not claim a harness passed until the relevant checks were run or the blocker is documented."
+    prevents: "False completion and unverified safety claims."
+  - id: crystallize-only-meaningful-cognition
+    type: cognitive
+    rule: "Persist only decisions that affect architecture, invariants, trust, protocol semantics, security, PTB behavior, or authority boundaries."
+    prevents: "Cognitive garbage accumulation."
+  - id: status-before-authority
+    type: cognitive
+    rule: "Check whether cognition is active, experimental, deprecated, superseded, or rejected before treating it as authority."
+    prevents: "Contradictory or stale cognition guiding new work."
+  - id: conflict-before-completion
+    type: cognitive
+    rule: "Resolve or explicitly accept medium-or-higher cognition conflicts before completion."
+    prevents: "Silent contradiction accumulation."
+  - id: budget-is-a-safety-boundary
+    type: cognitive
+    rule: "When context exceeds budget, split the task or escalate rather than dropping critical cognition."
+    prevents: "Token efficiency causing architectural amnesia."
+reasoning_pattern:
+  - "Load commitments."
+  - "Load compressed context."
+  - "Check budget and visibility scope."
+  - "Name the invariant at risk."
+  - "Name cognition weight."
+  - "Check freshness and supersession status."
+  - "Check conflicts and drift metrics."
+  - "Choose the smallest implementation that preserves it."
+  - "Record new rationale only when future agents need it."

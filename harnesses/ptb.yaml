@@ -1,0 +1,35 @@
+schema_version: 1
+id: ptb-harness
+layer: L3
+applies_when:
+  - "Building programmable transaction blocks."
+  - "Changing transaction sequencing, dry-run handling, signing, sponsorship, or atomic flows."
+load:
+  cognitive_state:
+    - cognition/state/invariants.yaml#ptb-atomicity-visible
+    - cognition/state/architectural_commitments.yaml#sui-object-first-design
+    - cognition/state/lifecycle_policy.yaml
+    - cognition/state/cognitive_checksums.yaml
+  skills:
+    - skills/domain/sui/sui-stack-development/sui-cli.md
+    - skills/domain/infrastructure/sui-infrastructure/dapp-kit.md
+  constitutions:
+    - constitutions/sui-safety.yaml
+execution_gates:
+  before:
+    - "List all transaction commands that must be atomic."
+    - "Identify signers, sponsors, gas owner, and user approval surface."
+    - "Identify dry-run and failure-reporting behavior."
+    - "Record PTB atomicity and freshness flags in the checksum."
+  during:
+    - "Keep dependent value movement in one PTB unless there is a documented reason."
+    - "Do not hide irreversible object transfers behind vague UI copy."
+    - "Do not split flash-loan borrow and repay across transactions."
+  after:
+    - "Confirm digest handling, error handling, and user-visible transaction state."
+    - "Validate checksum has no silent atomicity reinterpretation."
+    - "Update decision log if atomicity boundaries changed."
+review_required:
+  - frontend
+  - move
+  - audit

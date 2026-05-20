@@ -1,0 +1,89 @@
+schema_version: 1
+layer: L0
+purpose: "Lightweight operational metrics for measuring cognition stability over long sessions."
+
+metric_schema:
+  id: "stable metric ID"
+  category: "retention | conflict | reinterpretation | safety | entropy | compression"
+  measurement: "How to count or judge it."
+  update_frequency: "per_task | per_review | per_session"
+  severity_signal: "none | low | medium | high | critical"
+
+metrics:
+  - id: invariant-retention-rate
+    category: retention
+    measurement: "Touched invariants preserved divided by touched invariants total."
+    update_frequency: per_review
+    target: ">= 0.95 for foundational and architectural tiers."
+    severity_signal: high
+
+  - id: contradiction-frequency
+    category: conflict
+    measurement: "Number of medium-or-higher conflicts recorded per session."
+    update_frequency: per_session
+    target: "0 unresolved at completion."
+    severity_signal: medium
+
+  - id: rejected-pattern-reintroduction
+    category: safety
+    measurement: "Count of rejected patterns detected in proposed implementation or docs."
+    update_frequency: per_review
+    target: "0."
+    severity_signal: high
+
+  - id: semantic-reinterpretation-frequency
+    category: reinterpretation
+    measurement: "Count of times an active commitment required clarification due to ambiguous implementation."
+    update_frequency: per_session
+    target: "<= 1 per long session."
+    severity_signal: medium
+
+  - id: unsafe-refactor-frequency
+    category: safety
+    measurement: "Count of refactors that weaken foundational invariants before review catches them."
+    update_frequency: per_review
+    target: "0."
+    severity_signal: critical
+
+  - id: cognition-entropy-growth
+    category: entropy
+    measurement: "Net increase in active L0 items minus retired/superseded/deprecated items."
+    update_frequency: per_session
+    target: "<= 3 new active items without pruning review."
+    severity_signal: medium
+
+  - id: compression-effectiveness
+    category: compression
+    measurement: "Number of task-critical items preserved in compressed context divided by task-critical items identified in review."
+    update_frequency: per_review
+    target: "1.0 for critical items; >= 0.9 for high-weight items."
+    severity_signal: high
+
+  - id: architectural-consistency-score
+    category: retention
+    measurement: "100 minus weighted penalties for unresolved conflicts, weakened invariants, stale cognition reliance, and rejected-pattern reintroduction."
+    update_frequency: per_session
+    target: ">= 90 before completion."
+    severity_signal: high
+
+drift_severity_scoring:
+  none: "No active conflict, no stale reliance, no invariant erosion."
+  low: "Minor ambiguity or checksum note; no active invariant weakened."
+  medium: "Soft tension or stale cognition affected implementation; resolution required before completion."
+  high: "Active commitment conflict, rejected pattern reintroduced, or architecture invariant weakened."
+  critical: "Foundational invariant, fund safety, authority boundary, or PTB atomicity weakened."
+
+runtime_update_flow:
+  - "At task start, record baseline checksum and compressed context ID."
+  - "During task, increment conflict and reinterpretation signals only when they affect implementation."
+  - "Before review, calculate architectural consistency score using unresolved issues."
+  - "After review, update only session-level metrics; do not create permanent metrics for cosmetic issues."
+
+reporting_structure:
+  session_summary:
+    - "compressed_context_used"
+    - "checksum_drift_assessment"
+    - "conflicts_opened"
+    - "conflicts_resolved"
+    - "critical_items_preserved"
+    - "architectural_consistency_score"

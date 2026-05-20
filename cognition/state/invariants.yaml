@@ -1,0 +1,100 @@
+schema_version: 1
+layer: L0
+purpose: "Active invariants that must survive implementation, refactor, and review."
+invariants:
+  - id: no-commitment-loss
+    status: active
+    tier: foundational
+    freshness: stable
+    crystallization: decision_log_required
+    owner: architecture
+    scope:
+      - cognition/state/
+      - docs/operational-cognition-rfc.md
+    invariant: "No refactor may remove an active architectural commitment without adding a decision log entry explaining the replacement or retirement."
+    failure_mode: "Architectural amnesia through cleanup."
+    verification:
+      - "If a commitment is deleted or deprecated, check `cognition/state/decision_log/` for the rationale."
+    last_reviewed: "2026-05-20"
+
+  - id: no-sui-account-model-drift
+    status: active
+    tier: foundational
+    freshness: foundational
+    crystallization: decision_log_required
+    owner: move
+    scope:
+      - skills/domain/sui/
+      - harnesses/move.yaml
+    invariant: "Sui Move guidance must not drift into Ethereum-style account-storage assumptions."
+    failure_mode: "Unsafe or inefficient architecture that ignores Sui object ownership and shared object contention."
+    verification:
+      - "Move designs explain owned, shared, immutable, or wrapped object choices."
+      - "Admin control uses capabilities, not hardcoded sender checks."
+    last_reviewed: "2026-05-20"
+
+  - id: ptb-atomicity-visible
+    status: active
+    tier: foundational
+    freshness: foundational
+    crystallization: decision_log_required
+    owner: frontend
+    scope:
+      - harnesses/ptb.yaml
+      - harnesses/frontend-transaction.yaml
+    invariant: "Transaction flows that depend on multiple Sui operations must document the PTB atomicity boundary."
+    failure_mode: "Frontend or backend agents split atomic logic into inconsistent multi-step flows."
+    verification:
+      - "Transaction plans state which calls are in the same PTB."
+      - "User approval, dry-run, and failure handling are described together."
+    last_reviewed: "2026-05-20"
+
+  - id: financial-safety-before-optimization
+    status: active
+    tier: foundational
+    freshness: foundational
+    crystallization: decision_log_required
+    owner: audit
+    scope:
+      - harnesses/financial-safety.yaml
+      - skills/architecture/system-design/system-design/defi/
+      - review/
+    invariant: "Solvency, authorization, and invariant checks take priority over gas, latency, and abstraction cleanup."
+    failure_mode: "Optimization hides value leakage or breaks economic assumptions."
+    verification:
+      - "Financial changes include pre/post value movement checks."
+      - "Optimization PRs do not bypass oracle, slippage, pause, or cap checks."
+    last_reviewed: "2026-05-20"
+
+  - id: no-policy-hidden-in-prose
+    status: active
+    tier: architectural
+    freshness: stable
+    crystallization: decision_log_required
+    owner: architecture
+    scope:
+      - skills/
+      - docs/
+      - constitutions/
+      - harnesses/
+    invariant: "Mandatory agent behavior must be represented in L0 state, harnesses, constitutions, runtime, or review contracts rather than hidden only in narrative prose."
+    failure_mode: "Agents miss governing constraints because they are buried inside long documentation."
+    verification:
+      - "New mandatory behavior names its operational home."
+      - "Skills remain knowledge modules unless a harness or constitution references the behavior."
+    last_reviewed: "2026-05-20"
+
+  - id: cosmetic-conventions-do-not-block-safety
+    status: active
+    tier: cosmetic
+    freshness: stable
+    crystallization: do_not_persist
+    owner: planner
+    scope:
+      - skills/
+      - docs/
+    invariant: "Naming, formatting, and documentation style conventions must not block urgent safety or correctness work."
+    failure_mode: "Trivial conventions become overconstitutionalized and slow operational progress."
+    verification:
+      - "Cosmetic issues are not escalated as architecture blockers unless they impair usability or runtime loading."
+    last_reviewed: "2026-05-20"

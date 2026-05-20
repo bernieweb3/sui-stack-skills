@@ -1,0 +1,79 @@
+schema_version: 1
+layer: L0
+purpose: "Concise reasoning topology snapshots for decisions where future agents need the shape of the tradeoff."
+
+snapshot_criteria:
+  create_when:
+    - "A decision chooses between multiple architecture options."
+    - "A trust, authority, ownership, or PTB boundary is selected."
+    - "A soft tension is resolved in a way future agents may reinterpret."
+    - "A high or critical drift conflict is resolved."
+  do_not_create_for:
+    - "Linear implementation of an already-governed decision."
+    - "Cosmetic cleanup."
+    - "Local naming or file movement without architecture impact."
+    - "Full reasoning transcripts."
+
+persistence_thresholds:
+  decision_log_required: "Snapshot changes architecture, trust, protocol, or invariant semantics."
+  checksum_only: "Snapshot clarifies current session reasoning but does not change future behavior."
+  do_not_persist: "Snapshot would only restate obvious implementation steps."
+
+lifecycle_semantics:
+  - "Snapshots may be active, superseded, deprecated, or rejected."
+  - "Snapshots inherit freshness from the decision or invariant they explain."
+  - "A superseded snapshot must identify the newer snapshot or decision."
+  - "Snapshots preserve reasoning shape, not private chain-of-thought or verbose deliberation."
+
+snapshots:
+  - id: cognition-stability-minimalism
+    status: active
+    freshness: stable
+    weight: high
+    owner: architecture
+    related_decision: cognition/state/decision_log/2026-05-20-cognition-stability-semantics.md
+    reasoning_snapshot:
+      problem: "Reduce long-session drift without creating cognition governance overhead."
+      considered_options:
+        - "Add separate registries for every stability concern."
+        - "Fold all stability semantics into one large lifecycle file."
+        - "Use a few runtime-facing registries and keep lifecycle policy centralized."
+      dominant_constraints:
+        - "minimum-viable-cognition"
+        - "token-overhead-vs-drift-reduction"
+        - "yaml-fragmentation"
+      rejected_alternatives:
+        - "Policy engine for lifecycle enforcement."
+        - "Symbolic graph of cognition dependencies."
+      selected_tradeoff: "Use small grouped YAML registries only for runtime surfaces; keep status, freshness, tiers, and weighting centralized."
+      trust_assumptions:
+        - "Agents can follow concise YAML and Markdown protocols."
+        - "Human review remains the authority for conflicts."
+      protocol_assumptions:
+        - "Checksums and compressed contexts are manually maintained during review."
+
+  - id: sui-ptb-safety-priority
+    status: active
+    freshness: foundational
+    weight: critical
+    owner: move
+    related_decision: cognition/state/decision_log/2026-05-20-operational-cognition-framework.md
+    reasoning_snapshot:
+      problem: "Preserve Sui-specific safety across Move, PTB, and frontend transaction tasks."
+      considered_options:
+        - "Let each skill explain safety locally."
+        - "Make PTB and capability constraints foundational invariants."
+        - "Defer safety checks to audit review only."
+      dominant_constraints:
+        - "capability enforcement"
+        - "PTB atomicity"
+        - "object ownership clarity"
+      rejected_alternatives:
+        - "Sender-address checks as default authority."
+        - "Splitting dependent value movement across transactions without rationale."
+      selected_tradeoff: "Treat object ownership, capability authority, and PTB atomicity as critical compressed cognition for Sui routes."
+      trust_assumptions:
+        - "Wallet UI must not fake finality."
+        - "Move authority boundaries must be explicit."
+      protocol_assumptions:
+        - "PTB boundaries are documented before implementation and validated before review."

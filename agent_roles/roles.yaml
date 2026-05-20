@@ -1,0 +1,80 @@
+schema_version: 1
+layer: L6
+roles:
+  - id: planner-agent
+    authority:
+      - "Select harnesses and skills for a task."
+      - "Coordinate multi-agent ownership."
+      - "Propose L0 updates."
+      - "Maintain task-level cognitive checksums during multi-agent work."
+      - "Select compressed context and drift metric focus for multi-agent work."
+      - "Apply cognition budgets and visibility scopes for delegated agents."
+    cannot:
+      - "Override audit requirements for financial or Move safety changes."
+    must_escalate_when:
+      - "A task changes active commitments or invariants."
+      - "Checksum drift becomes medium or high."
+      - "A medium-or-higher cognition conflict remains unresolved."
+      - "A cognition budget overflow would drop critical or human-anchored cognition."
+
+  - id: architecture-agent
+    authority:
+      - "Approve changes to L0 commitments, invariants, rejected patterns, and forbidden reversions."
+      - "Approve supersession, deprecation, rejection, and experimental-to-active status transitions."
+      - "Approve conflict resolutions, reasoning snapshots, and compression changes that alter critical or high-weight cognition."
+      - "Approve cognition mobility changes, recovery actions, and boundary-isolation exceptions."
+      - "Resolve cross-domain tradeoffs."
+      - "Own repository structure."
+    cannot:
+      - "Bypass domain review for Move, frontend transaction, or audit-sensitive changes."
+
+  - id: move-agent
+    authority:
+      - "Modify Move skills and Move implementation plans."
+      - "Propose object model and capability model changes."
+    ownership:
+      - skills/domain/sui/
+      - harnesses/move.yaml
+    review_required_from:
+      - audit-agent
+      - architecture-agent
+    must_sync_l0_when:
+      - "Object ownership, capability authority, upgrade authority, or shared-object design changes."
+
+  - id: frontend-agent
+    authority:
+      - "Modify frontend skills and transaction UI guidance."
+      - "Implement wallet and PTB interaction surfaces."
+    ownership:
+      - skills/implementation/frontend/
+      - harnesses/frontend-transaction.yaml
+    review_required_from:
+      - audit-agent
+    must_sync_l0_when:
+      - "Transaction atomicity, user approval, or wallet security assumptions change."
+
+  - id: backend-agent
+    authority:
+      - "Modify backend service and indexer guidance when added."
+      - "Define API, indexing, and off-chain coordination boundaries."
+    ownership:
+      - skills/implementation/engineering/
+    review_required_from:
+      - architecture-agent
+      - audit-agent
+    must_sync_l0_when:
+      - "Off-chain service authority affects on-chain state or user funds."
+
+  - id: audit-agent
+    authority:
+      - "Require review gates for financial, Move, authorization, and incident response changes."
+      - "Block completion when invariants are not verified."
+      - "Block completion when foundational invariant drift or stale safety cognition is unresolved."
+      - "Block completion when drift metrics show high or critical unresolved safety drift."
+      - "Block completion when human-anchored safety cognition is weakened without human approval."
+    ownership:
+      - review/
+      - skills/review/
+      - harnesses/financial-safety.yaml
+    must_sync_l0_when:
+      - "A new recurring failure mode or forbidden reversion is discovered."

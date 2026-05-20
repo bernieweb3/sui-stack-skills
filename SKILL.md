@@ -1,101 +1,138 @@
-# sui-stack-skills - The Ultimate Sui Developer Knowledge Base
+# Sui Stack Operational Cognition Framework
 
-> **Author:** Bernie Nguyen (BernieWeb3)
-> **License:** Apache License 2.0
-> **Version:** 1.0.0
+> Author: Bernie Nguyen (BernieWeb3)  
+> License: Apache License 2.0  
+> Version: 2.0.0
 
-A comprehensive, expert-level technical knowledge base for building decentralized applications on the Sui Blockchain. This repository mimics the structure of a high-quality "Awesome List" or "Developer Roadmap," providing actionable, security-focused, and highly optimized guides for Senior Engineers.
+This repository is no longer only a Sui developer knowledge base.
 
-## 📚 Table of Contents
+It is a lightweight operational cognition framework for coding agents working on Sui, Move, PTB-heavy systems, frontend transaction flows, and long-horizon software engineering tasks.
 
-1.  [Getting Started](#getting-started)
-2.  [Preparation Phase](#preparation-before-project)
-3.  [Techncial Skills](#technical-skills)
-    *   [Sui Stack Development](#sui-stack-development)
-    *   [Frontend Development](#frontend-development)
-    *   [Sui Infrastructure](#sui-infrastructure)
-    *   [Common Skills (Engineering Excellence)](#common-skills)
-4.  [Architecture & System Design](#system-design)
-5.  [Advanced Topics](#advanced-security--optimization)
+The success metric is simple:
 
----
+> reduce architectural drift across long coding sessions.
 
-## Getting Started
+## Operating Model
 
-This repository is designed to be read linearly or used as a reference. If you are starting a new project, begin with [Preparation Before Project](#preparation-before-project). If you are optimizing an existing dApp, jump to [Advanced Security & Optimization](#advanced-security--optimization).
+```text
+L0  cognition/      Persistent architectural cognition
+L1  skills/         Domain and implementation knowledge
+L2  runtime/        Context routing and loading protocol
+L3  harnesses/      Task-local execution gates
+L4  constitutions/  Behavioral and cognitive constraints
+L5  review/         Completion and audit contracts
+L6  agent_roles/    Multi-agent ownership and escalation
+```
 
-### Prerequisites
-*   Understanding of basic Blockchain concepts.
-*   Proficiency in Rust (for Move) and TypeScript (for Frontend).
+## Start Here
 
----
+For framework design and usage:
 
-## Preparation Before Project
-*Before writing a single line of code, understand the "Why" and "How".*
+- [Operational Cognition RFC](docs/operational-cognition-rfc.md)
+- [Migration Map](docs/migration-map.md)
 
-*   **[The Product Development Process](preparation_before_project/the_product_development_process.md)** – Discovery, Agile adaptation for Web3, and Audit lifecycles.
-*   **[Requirement Analysis](preparation_before_project/requirement_analysis.md)** – Translating ideas into User Stories, Requirements, and Edge Cases.
-*   **[Technical Feasibility & Stack](preparation_before_project/technical_feasibility_and_stack.md)** – Build vs Buy decisions, Cost estimation, and Repository architecture.
+For persistent cognition:
 
----
+- [L0 Cognitive State](cognition/README.md)
+- [Architectural Commitments](cognition/state/architectural_commitments.yaml)
+- [Invariants](cognition/state/invariants.yaml)
+- [Lifecycle Policy](cognition/state/lifecycle_policy.yaml)
+- [Resilience Policy](cognition/state/resilience_policy.yaml)
+- [Compressed Context](cognition/state/compressed_context.yaml)
+- [Cognitive Checksums](cognition/state/cognitive_checksums.yaml)
+- [Conflict Registry](cognition/state/conflict_registry.yaml)
+- [Reasoning Snapshots](cognition/state/reasoning_snapshots.yaml)
+- [Drift Metrics](cognition/state/drift_metrics.yaml)
+- [Rejected Patterns](cognition/state/rejected_patterns.yaml)
+- [Forbidden Reversions](cognition/state/forbidden_reversions.yaml)
 
-## Technical Skills
+For task execution:
 
-### Sui Stack Development
-*Core blockchain logic and interaction.*
+- [Runtime Model](runtime/README.md)
+- [Task Router](runtime/task_router.yaml)
+- [Gemini Flash Context Profile](runtime/flash_context_profile.yaml)
+- [Move Harness](harnesses/move.yaml)
+- [PTB Harness](harnesses/ptb.yaml)
+- [Frontend Transaction Harness](harnesses/frontend-transaction.yaml)
+- [Financial Safety Harness](harnesses/financial-safety.yaml)
 
-*   **[Sui Move Smart Contract](sui_stack_development/sui_move_smart_contract.md)** – Move 2024 patterns, Capabilities, Hot Potatoes, and Object-centric design.
-*   **[Sui CLI](sui_stack_development/sui_cli.md)** – Advanced key management, PTB building, and network switching.
+## Runtime Flow
 
-### Frontend Development
-*Building the user interface.*
+Before a substantial task:
 
-*   **[React.js](frontend_development/react_js.md)** – Hooks hygiene, Performance optimization.
-*   **[Vue.js](frontend_development/vue_js.md)** – Composition API, Pinia state management.
-*   **[Next.js](frontend_development/next_js.md)** – App Router, Server Actions, Hybrid rendering.
-*   **[Astro](frontend_development/astro.md)** – Zero-JS architecture, Island hydration.
-*   **[Tailwind CSS](frontend_development/tailwind_css.md)** – Utility-first design systems.
-*   **[Bootstrap](frontend_development/bootstrap.md)** – Modern usage without jQuery.
-*   **[Framer Motion](frontend_development/framer_motion.md)** – Declarative animations and gestures.
+1. Route the task using `runtime/task_router.yaml`.
+2. Select the compressed context.
+3. Select the role visibility scope and cognition budget.
+4. Load relevant L0 cognitive state.
+5. Check lifecycle status, freshness, supersession, cognition weight, and human anchors.
+6. Load or create the cognitive checksum.
+7. Load one primary harness.
+8. Load only the skills named by that harness.
+9. Load the core constitution and any domain constitution.
 
-### Sui Infrastructure
-*Connecting your dApp to the world.*
+During the task:
 
-*   **[Dapp Kit](sui_infrastructure/dapp_kit.md)** – Hooks and Providers for wallet connection.
-*   **[Walrus](sui_infrastructure/walrus.md)** – Decentralized storage for blobs and media.
-*   **[Seal](sui_infrastructure/seal.md)** – Decentralized Secret Management (DSM).
-*   **[Zklogin](sui_infrastructure/zklogin.md)** – Frictionless Web2 onboarding with Zero-Knowledge proofs.
-*   **[DeepBook](sui_infrastructure/deepbook.md)** – Integrating with Sui's CLOB liquidity layer.
-*   **[Enoki](sui_infrastructure/enoki.md)** – Turnkey solution for zkLogin and Sponsored Transactions.
+1. Preserve active invariants.
+2. Preserve architectural commitments.
+3. Track touched invariant tiers.
+4. Preserve critical and high-weight cognition during compression.
+5. Keep the active cognition set within budget.
+6. Refresh stale cognition before relying on it.
+7. Record conflicts and drift signals when they affect implementation.
+8. Run recovery for medium-or-higher drift events.
+9. Avoid rejected patterns.
+10. Escalate if authority boundaries or human anchors are crossed.
 
-### Common Skills
-*Universal engineering excellence applicable to any stack.*
+After the task:
 
-*   **[Clean Code & Architecture](common_skills/clean_code_and_architecture.md)** – SOLID, DRY, and naming conventions.
-*   **[Security Fundamentals](common_skills/security_fundamentals.md)** – Input validation, Secret management, PoLP.
-*   **[Performance Optimization](common_skills/performance_optimization.md)** – Big O, Caching, Memory management.
-*   **[Testing Code Quality](common_skills/testing_code_quality.md)** – The Testing Pyramid, TDD, Static Analysis.
+1. Run verification.
+2. Apply review contracts.
+3. Validate checksum drift is `none` or `low`.
+4. Confirm no unresolved medium-or-higher conflict remains.
+5. Confirm human anchors were not weakened.
+6. Update drift metrics only for real drift signals.
+7. Crystallize only architecturally meaningful cognition.
+8. Update L0 only if architectural intent changed.
+9. Add a decision log entry for any L0 state change.
 
----
+## Skills
 
-## System Design
-*Architectural patterns for specific domains.*
+The original knowledge base remains under `skills/`:
 
-*   **[Consumer dApp](system_design/consumer_dapp/architecture.md)** – "Invisible Web3", Gasless flows, Optimistic UI.
-*   **[DeFi](system_design/defi/architecture.md)** – High-assurance financial engines, MEV protection, Oracle redundancy.
-*   **[GameFi](system_design/gamefi/architecture.md)** – Session Keys, Dynamic Assets, Kiosk integration.
-*   **[Infrastructure & Tooling](system_design/infrastructure_and_tool/architecture.md)** – RPC Load balancing, Indexer pipelines.
+- `skills/domain/sui/`
+- `skills/domain/infrastructure/`
+- `skills/implementation/frontend/`
+- `skills/implementation/engineering/`
+- `skills/architecture/`
+- `skills/review/`
 
----
+Skills are knowledge. They are not hidden policy. Mandatory behavior belongs in cognition, harnesses, constitutions, or review contracts.
 
-## Advanced Security & Optimization
-*For when you need to squeeze every bit of performance and security.*
+## Gemini 3.5 Flash Usage
 
-*   **[Advanced Security Patterns](advanced_security_and_optimization/advanced_security_patterns.md)** – Anti-Flashloan loops, Oracle manipulation guards, Safe upgrade patterns.
-*   **[Advanced Optimization Techniques](advanced_security_and_optimization/advanced_optimization_techniques.md)** – Object packing strategy, Parallel execution hacks.
-*   **[Audit & Incident Response](advanced_security_and_optimization/audit_and_incident_response.md)** – Pre-audit prep, War Room protocols, Emergency pausing.
+For Flash-class models, keep context narrow:
 
----
+1. Task objective
+2. compressed context
+3. cognition budget and human-anchor flags
+4. active checksum
+5. relevant L0 IDs with invariant tiers and weights
+6. freshness, conflict, recovery, and supersession flags
+7. one harness
+8. one constitution
+9. narrow skill excerpts
 
-## Contributing
-Contributions are welcome! Please ensure your code relates to the latest Move 2024 edition and follows the [Clean Code](common_skills/clean_code_and_architecture.md) guidelines.
+Refresh L0 before large edits, after task pivots, and before final review.
+
+## What This Repository Does Not Build
+
+This MVP intentionally avoids:
+
+- autonomous orchestration engines
+- symbolic cognition graphs
+- giant policy runtimes
+- custom DSLs
+- excessive YAML fragmentation
+- distributed cognition theory
+
+The framework stays useful only if it remains readable, composable, and easy for coding agents to actually follow.

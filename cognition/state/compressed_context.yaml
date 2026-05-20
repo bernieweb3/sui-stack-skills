@@ -1,0 +1,112 @@
+schema_version: 1
+layer: L0
+purpose: "Low-overhead compressed cognition sets for runtime injection."
+usage: "Load one compressed context for normal tasks, then expand only the IDs needed by the active harness."
+
+compression_hierarchy:
+  foundational_truths: "Critical truths that survive compression and must appear in Flash prompts."
+  active_architecture: "Current architectural shape relevant to the route."
+  active_risks: "Known risks that should bias implementation choices."
+  forbidden_regressions: "Rejected or forbidden changes that must remain visible."
+  expansion_refs: "Source IDs/files to load when the compressed set is insufficient."
+
+compression_rules:
+  - "Compress by stable IDs and one-line meanings, not long historical rationale."
+  - "Never omit critical or foundational cognition from a task that can affect it."
+  - "Do not compress away rejected patterns when the task touches their domain."
+  - "A compressed context may reference decision logs, but should not quote them."
+  - "If a conflict or medium/high checksum drift appears, expand the relevant source files."
+
+summarization_boundaries:
+  preserve:
+    - "architectural intent"
+    - "foundational invariants"
+    - "critical rationale pointers"
+    - "forbidden regressions"
+  omit_by_default:
+    - "full decision history"
+    - "cosmetic conventions"
+    - "deprecated details unless referenced by a conflict"
+    - "long examples from skills"
+
+working_sets:
+  - id: framework-core-compressed
+    status: active
+    owner: architecture
+    applies_to:
+      - cognition/
+      - runtime/
+      - harnesses/
+      - constitutions/
+      - review/
+    compression_weight_floor: high
+    compressed_context:
+      foundational_truths:
+        - id: minimum-viable-cognition
+          meaning: "Keep the framework lightweight and operational."
+        - id: l0-before-retrieval
+          meaning: "Load persistent intent before broad knowledge retrieval."
+        - id: no-commitment-loss
+          meaning: "Do not remove active commitments without decision rationale."
+      active_architecture:
+        - id: skills-are-knowledge-not-policy
+          meaning: "Knowledge lives in skills; constraints live in L0, harnesses, constitutions, runtime, and review."
+        - id: lifecycle-semantics-stay-lightweight
+          meaning: "Lifecycle and checksum mechanisms remain runtime aids, not a policy engine."
+      active_risks:
+        - id: yaml-fragmentation
+          meaning: "Too many tiny YAML files reduce usability."
+        - id: token-overhead-vs-drift-reduction
+          meaning: "Context packets must stay smaller than full RFC injection."
+      forbidden_regressions:
+        - id: do-not-return-to-flat-knowledge-repo
+          meaning: "Do not collapse back into a knowledge-only repo."
+        - id: giant-policy-runtime
+          meaning: "Do not introduce a large autonomous rule engine."
+      expansion_refs:
+        - cognition/state/architectural_commitments.yaml
+        - cognition/state/invariants.yaml
+        - cognition/state/lifecycle_policy.yaml
+        - cognition/state/rejected_patterns.yaml
+
+  - id: sui-transaction-compressed
+    status: active
+    owner: move
+    applies_to:
+      - harnesses/move.yaml
+      - harnesses/ptb.yaml
+      - harnesses/frontend-transaction.yaml
+    compression_weight_floor: critical
+    compressed_context:
+      foundational_truths:
+        - id: sui-object-first-design
+          meaning: "Sui design starts from objects, capabilities, and PTB atomicity."
+        - id: no-sui-account-model-drift
+          meaning: "Do not drift into Ethereum-style account storage assumptions."
+        - id: ptb-atomicity-visible
+          meaning: "Dependent Sui operations must state their PTB atomicity boundary."
+      active_architecture:
+        - id: capability-authority
+          meaning: "Privileged Move actions default to capability authority."
+        - id: frontend-transaction-harness
+          meaning: "Wallet flows expose approval, rejection, failure, and finality states."
+      active_risks:
+        - id: shared-object-contention
+          meaning: "Shared objects can serialize throughput and need explicit rationale."
+        - id: unsafe-transaction-splitting
+          meaning: "Splitting dependent value movement can break atomicity."
+      forbidden_regressions:
+        - id: do-not-remove-capability-first-move-guidance
+          meaning: "Do not replace capability-first guidance with raw sender checks."
+        - id: fake-finality
+          meaning: "Do not present transaction success before confirmation."
+      expansion_refs:
+        - harnesses/move.yaml
+        - harnesses/ptb.yaml
+        - cognition/state/invariants.yaml
+        - constitutions/sui-safety.yaml
+
+refresh_update_semantics:
+  - "Refresh a compressed context when any referenced critical or high-weight item changes."
+  - "If an item is superseded, replace it in the compressed set during the same review."
+  - "If the compressed set grows beyond ten entries in a section, split by route rather than adding more bullets."

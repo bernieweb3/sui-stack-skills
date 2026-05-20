@@ -1,0 +1,32 @@
+schema_version: 1
+id: frontend-transaction-harness
+layer: L3
+applies_when:
+  - "Changing wallet connection, transaction signing, sponsored transactions, or frontend Sui state."
+load:
+  cognitive_state:
+    - cognition/state/invariants.yaml#ptb-atomicity-visible
+    - cognition/state/lifecycle_policy.yaml
+    - cognition/state/cognitive_checksums.yaml
+  skills:
+    - skills/domain/infrastructure/sui-infrastructure/dapp-kit.md
+    - skills/implementation/frontend/frontend-development/reactjs.md
+    - skills/implementation/frontend/frontend-development/nextjs.md
+  constitutions:
+    - constitutions/core.yaml
+execution_gates:
+  before:
+    - "Identify whether the flow is read-only, sign-only, sign-and-execute, or sponsored."
+    - "Identify network assumptions and wallet standard support."
+    - "Refresh `refresh_required` SDK or wallet API cognition before relying on it."
+  during:
+    - "Preserve explicit pending, success, rejection, and failure states."
+    - "Do not fake finality before transaction confirmation."
+    - "Do not silently switch networks."
+  after:
+    - "Verify wallet rejection and RPC failure handling."
+    - "Check that transaction digest or explorer link is exposed when useful."
+    - "Checksum must show no fake finality or silent network-switch drift."
+review_required:
+  - frontend
+  - audit

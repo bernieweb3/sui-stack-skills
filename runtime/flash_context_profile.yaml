@@ -1,0 +1,80 @@
+schema_version: 1
+layer: L2
+id: gemini-flash-context-profile
+purpose: "Small context packets for Gemini 3.5 Flash and other fast coding agents."
+default_packet_order:
+  - task_objective
+  - compressed_context
+  - cognition_budget
+  - human_anchor_flags
+  - active_checksum
+  - active_commitment_ids
+  - active_invariant_ids_with_tiers
+  - critical_and_high_weight_items
+  - freshness_flags
+  - conflict_flags
+  - supersession_flags
+  - drift_metric_focus
+  - primary_harness
+  - one_constitution
+  - narrow_skill_excerpts
+refresh_intervals:
+  before_large_edit: true
+  after_task_pivot: true
+  after_long_output: true
+  before_accepting_refactor: true
+  before_final_review: true
+  max_steps_without_refresh: 4
+budget_profile: gemini_flash
+compression_thresholds:
+  max_compressed_items_per_section: 5
+  always_include_weights:
+    - critical
+  include_high_when_route_relevant: true
+  omit_by_default:
+    - low
+injection_limits:
+  max_active_commitments: 5
+  max_runtime_invariants: 8
+  max_reasoning_snapshots: 1
+  max_conflict_contexts: 1
+  max_drift_metrics: 3
+  max_expanded_source_files: 2
+isolation_strategy:
+  - "Inject only the route visibility scope by default."
+  - "Use ID plus one-line meaning before expanding hidden cognition."
+  - "Expand hidden cognition only for cross-boundary safety, trust, authority, or PTB decisions."
+conflict_escalation:
+  low: "Record in checksum."
+  medium: "Resolve or document tradeoff before completion."
+  high: "Stop for architecture review."
+  critical: "Stop for architecture and audit review."
+drift_detection_prompts:
+  - "Which active commitments are still governing this task?"
+  - "Is the context within the Gemini Flash cognition budget?"
+  - "Are any human anchors relevant to this change?"
+  - "Which invariant tiers were touched?"
+  - "Did compressed context omit any critical or high-weight item?"
+  - "Is there a hard contradiction, soft tension, semantic ambiguity, or drift signal?"
+  - "Did stale, deprecated, superseded, or rejected cognition influence the change?"
+  - "Did the implementation simplify away a safety or authority boundary?"
+  - "Does the checksum still match the work performed?"
+recovery_triggers:
+  - "checksum mismatch"
+  - "medium-or-higher conflict"
+  - "human anchor touched"
+  - "rejected pattern reintroduced"
+  - "foundational invariant instability"
+anti_overoptimization_rules:
+  - "Do not optimize token usage by omitting foundational invariants."
+  - "Do not replace explicit L0 IDs with vague summaries."
+  - "Do not collapse PTB, capability, or trust-boundary checks into generic security language."
+  - "Prefer one harness plus checksum over broad RFC injection."
+completion_gate:
+  - "Regenerate or validate the checksum before final review."
+  - "Validate cognition budget was respected."
+  - "Validate human anchors were not weakened."
+  - "Check compressed context effectiveness for critical and high-weight items."
+  - "Check conflict registry for unresolved medium-or-higher conflicts."
+  - "Update drift metrics when a real drift signal occurred."
+  - "If drift assessment is medium or high, stop and resolve before completion."

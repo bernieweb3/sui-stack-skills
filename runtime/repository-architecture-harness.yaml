@@ -1,0 +1,38 @@
+schema_version: 1
+id: repository-architecture-harness
+layer: L3
+applies_when:
+  - "Changing the framework structure, L0 state model, runtime routing, constitutions, or review contracts."
+load:
+  cognitive_state:
+    - cognition/state/architectural_commitments.yaml#minimum-viable-cognition
+    - cognition/state/architectural_commitments.yaml#lifecycle-semantics-stay-lightweight
+    - cognition/state/architectural_commitments.yaml#skills-are-knowledge-not-policy
+    - cognition/state/compressed_context.yaml
+    - cognition/state/cognitive_checksums.yaml
+    - cognition/state/conflict_registry.yaml
+    - cognition/state/drift_metrics.yaml
+    - cognition/state/lifecycle_policy.yaml
+    - cognition/state/rejected_patterns.yaml
+    - cognition/state/forbidden_reversions.yaml
+  constitutions:
+    - constitutions/core.yaml
+    - constitutions/anti-drift.yaml
+execution_gates:
+  before:
+    - "State whether the change reduces drift, improves clarity, or only adds structure."
+    - "Identify compressed context, checksum focus, freshness flags, conflicts, weights, and invariant tiers touched by the change."
+    - "Prefer editing an existing registry over adding a new folder or tiny file."
+  during:
+    - "Avoid new DSLs, daemons, autonomous schedulers, and excessive YAML fragmentation."
+    - "Keep operational files readable without custom tooling."
+    - "Do not promote experimental cognition to active without crystallization rationale."
+    - "Do not add metrics or snapshots for cosmetic-only changes."
+  after:
+    - "Update the RFC and root entrypoint if the runtime model changes."
+    - "Validate checksum drift is none or low."
+    - "Validate no medium-or-higher conflict remains unresolved."
+    - "Validate compression preserved critical and high-weight cognition."
+    - "Add a decision log entry for any commitment, invariant, supersession, or forbidden reversion change."
+review_required:
+  - architecture

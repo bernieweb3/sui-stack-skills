@@ -1,0 +1,178 @@
+schema_version: 1
+layer: L0
+purpose: "Lifecycle semantics for supersession, crystallization, freshness, and invariant tiering."
+
+status_semantics:
+  active:
+    meaning: "Current governing cognition."
+    runtime_behavior: "Load by default when route or harness references it."
+  experimental:
+    meaning: "Trial cognition that may guide work but cannot override active commitments or foundational invariants."
+    runtime_behavior: "Load only when explicitly referenced by the task or decision log."
+  deprecated:
+    meaning: "Still historically valid but discouraged for new work."
+    runtime_behavior: "Do not use for new decisions unless no active replacement exists."
+  superseded:
+    meaning: "Replaced by another cognition item."
+    runtime_behavior: "Do not apply directly; follow `superseded_by` and preserve rationale lineage."
+  rejected:
+    meaning: "Known-bad or intentionally avoided pattern."
+    runtime_behavior: "Treat as a forbidden or warning pattern when relevant."
+  archived:
+    meaning: "No longer active in runtime, retained for traceability."
+    runtime_behavior: "Do not load unless investigating history or rollback."
+  pruned:
+    meaning: "Removed from active cognition after reference and ownership checks."
+    runtime_behavior: "Do not load; retain only if decision history requires a trace."
+
+supersession_rules:
+  - "A superseded item must include `superseded_by`."
+  - "The successor item should include `supersedes` when it directly replaces prior cognition."
+  - "Superseding foundational or architectural invariants requires a decision log entry."
+  - "Deprecated items may remain without a successor, but must include `deprecation_reason`."
+  - "Experimental items expire unless promoted, deprecated, archived, or rejected at the next review trigger."
+  - "Archived or pruned cognition must not be reactivated without a decision log entry."
+
+conflict_handling:
+  - "If two active items conflict, stop and create a decision log entry before continuing."
+  - "If active and superseded items conflict, active wins but the checksum should record the supersession flag."
+  - "If an experimental item conflicts with active cognition, active wins."
+  - "If rejected cognition appears in a proposed implementation, review must block completion."
+
+freshness_taxonomy:
+  foundational:
+    meaning: "Core principle expected to remain valid for the framework or Sui safety model."
+    refresh_policy: "Review quarterly or when contradicted by a new architectural decision."
+    examples:
+      - move_capability_model
+      - noncustodial_design
+      - ptb_atomicity
+  stable:
+    meaning: "Expected to remain valid across normal refactors."
+    refresh_policy: "Review when the owning layer changes."
+    examples:
+      - repository_layer_model
+      - skills_are_knowledge_not_policy
+  refresh_required:
+    meaning: "Potentially affected by SDK versions, external APIs, or fast-moving ecosystem behavior."
+    refresh_policy: "Refresh before relying on it for implementation."
+    examples:
+      - sdk_versioning
+      - rpc_strategy
+      - wallet_api_details
+  volatile:
+    meaning: "Operationally useful but short-lived."
+    refresh_policy: "Refresh every session or before use."
+    examples:
+      - deployment_status
+      - active_incident_context
+      - temporary_route_assumptions
+
+crystallization_criteria:
+  should_crystallize:
+    - "Architecture decisions."
+    - "Invariant changes."
+    - "Ownership model changes."
+    - "Trust boundary changes."
+    - "Protocol assumptions."
+    - "Security assumptions."
+    - "PTB semantics."
+    - "Authority boundaries."
+  should_not_crystallize:
+    - "Naming tweaks."
+    - "Cosmetic refactors."
+    - "Local cleanup."
+    - "Formatting changes."
+    - "Minor implementation details."
+    - "Temporary workarounds without architectural consequence."
+  persistence_thresholds:
+    decision_log_required:
+      - foundational_invariant_change
+      - architectural_invariant_change
+      - active_commitment_change
+      - trust_boundary_change
+      - authority_boundary_change
+      - rejected_pattern_change
+    checksum_only:
+      - operational_invariant_touched_without_semantic_change
+      - freshness_refresh_completed
+      - potential_conflict_resolved_without_state_change
+    do_not_persist:
+      - cosmetic_change_only
+      - local_refactor_no_boundary_change
+      - formatting_only
+
+invariant_tiers:
+  foundational:
+    enforcement: "blocker"
+    persistence: "Decision log required for create, update, supersede, or retire."
+    violation_consequence: "Stop work; architecture and audit review required."
+    escalation: "architecture-agent and audit-agent"
+  architectural:
+    enforcement: "strong"
+    persistence: "Decision log required when semantics change."
+    violation_consequence: "Resolve before completion; architecture review required."
+    escalation: "architecture-agent"
+  operational:
+    enforcement: "normal"
+    persistence: "Checksum is enough unless repeated violations occur."
+    violation_consequence: "Fix or document why the harness does not apply."
+    escalation: "planner-agent"
+  cosmetic:
+    enforcement: "advisory"
+    persistence: "Do not crystallize unless it affects usability or tooling."
+    violation_consequence: "Do not block safety work."
+    escalation: "none by default"
+
+rollback_semantics:
+  - "Rollback of an L0 change must restore the previous item status and add a decision log note."
+  - "Rollback of checksum-only state may simply append a new checksum entry or update `updated_at`."
+  - "Rollback must not delete rationale lineage unless the entry was accidental and never used."
+
+cognition_weighting:
+  critical:
+    meaning: "Must survive compression and must be injected for any task that can affect it."
+    persistence_priority: "highest"
+    refresh_behavior: "Refresh if stale before implementation; never treat stale critical cognition as authoritative."
+    injection_priority: 1
+    compression_resistance: "never omit when route is relevant"
+    examples:
+      - noncustodial_guarantees
+      - ptb_atomicity
+      - capability_enforcement
+  high:
+    meaning: "Architectural shape that usually affects implementation choices."
+    persistence_priority: "high"
+    refresh_behavior: "Refresh when touched or when owning layer changes."
+    injection_priority: 2
+    compression_resistance: "preserve in compressed route context"
+    examples:
+      - ownership_model
+      - authority_boundaries
+      - trust_boundaries
+  medium:
+    meaning: "Operational or UX pattern that guides implementation but can be overridden with rationale."
+    persistence_priority: "normal"
+    refresh_behavior: "Refresh when directly used."
+    injection_priority: 3
+    compression_resistance: "include only when harness references it"
+    examples:
+      - event_conventions
+      - transaction_ux_patterns
+      - logging_conventions
+  low:
+    meaning: "Cosmetic or local convention."
+    persistence_priority: "low"
+    refresh_behavior: "Do not refresh unless it affects usability."
+    injection_priority: 4
+    compression_resistance: "omit from compressed context by default"
+    examples:
+      - naming_conventions
+      - formatting_preferences
+      - documentation_style
+
+pruning_logic:
+  - "Low-weight cognition should not be added to L0 unless repeated violations show operational impact."
+  - "Medium-weight cognition may remain checksum-only unless it recurs across sessions."
+  - "High and critical cognition should have decision lineage and compression coverage."
+  - "When active L0 growth exceeds three items in a session, review whether any new item should be checksum-only, deprecated, or merged."

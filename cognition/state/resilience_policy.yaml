@@ -1,0 +1,242 @@
+schema_version: 1
+layer: L0
+purpose: "Minimum viable cognition resilience policy for budgeting, mobility, isolation, recovery, and human authority."
+usage: "Load with lifecycle policy for long sessions, multi-agent work, Flash-class models, and any task that changes L0."
+
+cognitive_budget:
+  default:
+    max_active_commitments: 7
+    max_runtime_invariants: 12
+    max_reasoning_snapshots: 3
+    max_conflict_contexts: 2
+    max_drift_metrics: 4
+    max_compressed_contexts: 1
+    max_expanded_source_files: 4
+    compression_priority:
+      - foundational_truths
+      - active_architecture
+      - active_risks
+      - forbidden_regressions
+    overflow_behavior:
+      - "Keep critical cognition before high, high before medium, medium before low."
+      - "Keep foundational invariants before operational or cosmetic invariants."
+      - "Replace verbose rationale with decision-log references."
+      - "Move low and cosmetic cognition out of runtime injection."
+      - "If still over budget, stop and ask architecture review what to omit."
+  gemini_flash:
+    max_active_commitments: 5
+    max_runtime_invariants: 8
+    max_reasoning_snapshots: 1
+    max_conflict_contexts: 1
+    max_drift_metrics: 3
+    max_compressed_contexts: 1
+    max_expanded_source_files: 2
+    required_always:
+      - "critical cognition"
+      - "foundational invariants"
+      - "human anchors relevant to the task"
+      - "active checksum"
+    omit_by_default:
+      - "low-weight cognition"
+      - "cosmetic invariants"
+      - "full decision log text"
+      - "superseded snapshots unless recovery requires them"
+
+budgeting_rules:
+  - "Budgeting is deterministic and manual; do not introduce dynamic token optimizers."
+  - "A budget overflow is a routing problem, not a reason to omit critical cognition."
+  - "Expand source files only when the compressed context cannot preserve task-critical intent."
+  - "If a task needs more than the budget, split the task or escalate to architecture review."
+
+cognition_mobility:
+  promotion_path:
+    - from: temporary_insight
+      to: validated_pattern
+      criteria:
+        - "Observed in at least two relevant tasks or one safety-critical review."
+        - "Has clear operational value beyond local implementation."
+      persistence: checksum_only
+    - from: validated_pattern
+      to: architectural_commitment
+      criteria:
+        - "Affects architecture, trust, authority, protocol semantics, or recurring implementation choices."
+        - "Has architecture-agent approval."
+      persistence: decision_log_required
+    - from: architectural_commitment
+      to: foundational_invariant
+      criteria:
+        - "Violation would compromise safety, trust, funds, authority, or core Sui/PTB semantics."
+        - "Has architecture-agent and audit-agent approval."
+      persistence: decision_log_required
+  demotion_path:
+    - from: stale_architecture
+      to: deprecated
+      criteria:
+        - "Still historically useful but no longer recommended."
+      persistence: decision_log_required_for_high_or_critical
+    - from: deprecated
+      to: archived
+      criteria:
+        - "No active route or harness references it."
+        - "Replacement or rationale lineage remains available."
+      persistence: checksum_only_unless_foundational
+    - from: archived
+      to: pruned
+      criteria:
+        - "No active decision, invariant, route, harness, or review contract references it."
+        - "Human or architecture owner accepts removal."
+      persistence: decision_log_required_for_human_anchor_or_foundational
+  validation_thresholds:
+    temporary_insight: "May live only in checksum or working notes."
+    validated_pattern: "Must have repeated operational evidence."
+    architectural_commitment: "Must have rationale and owner."
+    foundational_invariant: "Must have explicit violation consequence and escalation path."
+  pruning_flow:
+    - "Check references from router, harnesses, constitutions, review contracts, compressed contexts, and decision logs."
+    - "Demote before pruning unless the item was accidental and unused."
+    - "Never prune human-anchored cognition without human override."
+
+cognition_boundary_isolation:
+  visibility_rules:
+    planner-agent:
+      visible:
+        - framework-core-compressed
+        - active checksums
+        - route-level conflicts
+        - drift metric focus
+      hidden_by_default:
+        - low-level implementation details not needed for routing
+    architecture-agent:
+      visible:
+        - all L0 cognition
+        - all conflicts
+        - all human anchors
+      hidden_by_default: []
+    move-agent:
+      visible:
+        - sui-transaction-compressed
+        - Move object model cognition
+        - capability and PTB invariants
+        - Move safety review contracts
+      hidden_by_default:
+        - frontend styling conventions
+        - non-transaction UI details
+    frontend-agent:
+      visible:
+        - sui-transaction-compressed
+        - transaction UX cognition
+        - wallet approval and finality invariants
+        - API contracts when present
+      hidden_by_default:
+        - Move storage layout internals unless transaction semantics depend on them
+        - low-level PTB implementation detail not exposed to UI
+    backend-agent:
+      visible:
+        - API, indexing, off-chain authority, and trust-boundary cognition
+        - relevant Sui transaction contracts
+      hidden_by_default:
+        - frontend styling conventions
+        - Move internals unrelated to service authority
+    audit-agent:
+      visible:
+        - foundational and critical cognition
+        - conflicts medium or higher
+        - human anchors
+        - safety review contracts
+      hidden_by_default:
+        - low-weight cosmetic cognition
+  sharing_contracts:
+    - "Hidden cognition can be requested when a task crosses ownership or trust boundaries."
+    - "Cross-boundary sharing should pass IDs and one-line meanings first, not whole files."
+    - "Architecture agent mediates cross-boundary conflicts."
+    - "Audit agent can request any cognition needed for safety review."
+
+drift_recovery:
+  taxonomy:
+    checksum_mismatch: "Checksum no longer matches changed files or active route."
+    invariant_instability: "Invariant is weakened, inconsistently applied, or reinterpreted."
+    conflict_escalation: "Conflict severity reaches medium or higher."
+    semantic_reinterpretation: "Agent changes the meaning of an active commitment without decision rationale."
+    rejected_pattern_reintroduction: "Rejected pattern appears in implementation, docs, or runtime policy."
+    anchor_violation: "Human-anchored cognition is changed without human override."
+  severity:
+    low:
+      recovery:
+        - "Refresh checksum."
+        - "Reload compressed context."
+      escalation: none
+    medium:
+      recovery:
+        - "Reload foundational cognition."
+        - "Refresh compressed context."
+        - "Resolve or document conflict before completion."
+      escalation: planner-agent
+    high:
+      recovery:
+        - "Stop implementation."
+        - "Reload lifecycle policy, resilience policy, relevant compressed context, and source L0 files."
+        - "Invalidate stale snapshots."
+        - "Request architecture review."
+      escalation: architecture-agent
+    critical:
+      recovery:
+        - "Stop implementation."
+        - "Rollback unstable cognition layer or proposed change."
+        - "Reload human anchors and foundational invariants."
+        - "Request human and audit review."
+      escalation: human-anchor-owner and audit-agent
+  reset_flows:
+    checksum_reset:
+      - "Create a new checksum entry or update the active checksum with mismatch rationale."
+      - "Re-select compressed context."
+      - "Re-run review contract."
+    snapshot_invalidation:
+      - "Mark snapshot deprecated or superseded when its selected tradeoff no longer applies."
+      - "Do not delete unless it was accidental and unused."
+    compressed_context_refresh:
+      - "Replace superseded IDs."
+      - "Re-check critical and high-weight cognition coverage."
+      - "Update compression-effectiveness metric if coverage changed."
+    rollback_unstable_cognition:
+      - "Restore previous active L0 item or status."
+      - "Record decision rationale if foundational, critical, or human-anchored cognition was touched."
+
+human_cognition_anchors:
+  - id: bernie-web3-architecture-anchor
+    status: active
+    authority: bernie_web3
+    scope:
+      - cognition/
+      - runtime/
+      - harnesses/
+      - constitutions/
+      - review/
+      - skills/domain/sui/
+    protected_commitments:
+      - minimum-viable-cognition
+      - sui-object-first-design
+      - lifecycle-semantics-stay-lightweight
+    protected_invariants:
+      - no-commitment-loss
+      - no-sui-account-model-drift
+      - ptb-atomicity-visible
+      - financial-safety-before-optimization
+    protected_trust_assumptions:
+      - "Humans own architecture; agents assist execution."
+      - "Foundational Sui safety and PTB semantics cannot be weakened by convenience refactors."
+      - "Cognition governance must remain lightweight and operational."
+    immutable_without_human_override: true
+    allowed_agent_actions:
+      - "Propose changes with rationale."
+      - "Flag conflicts and drift."
+      - "Update checksum-only session notes."
+    blocked_agent_actions:
+      - "Remove or weaken protected invariants."
+      - "Prune human-anchored cognition."
+      - "Promote conflicting cognition over protected commitments."
+
+human_override_rules:
+  - "Human override is required to remove, supersede, or weaken protected cognition."
+  - "Architecture agent may prepare the change but must not mark it accepted without human approval."
+  - "Audit agent review is required when a protected security, trust, fund-safety, or PTB invariant changes."
+  - "Human anchors are not for cosmetic conventions or ordinary implementation preferences."

@@ -1,0 +1,35 @@
+schema_version: 1
+id: financial-safety-harness
+layer: L3
+applies_when:
+  - "Changing DeFi, swaps, liquidity, lending, liquidation, oracle, treasury, or admin pause flows."
+load:
+  cognitive_state:
+    - cognition/state/invariants.yaml#financial-safety-before-optimization
+    - cognition/state/lifecycle_policy.yaml
+    - cognition/state/cognitive_checksums.yaml
+    - cognition/state/unresolved_tradeoffs.yaml#strictness-vs-agent-velocity
+  skills:
+    - skills/architecture/system-design/system-design/defi/architecture.md
+    - skills/review/security-optimization/advanced-security-and-optimization/advanced-security-patterns.md
+    - skills/review/security-optimization/advanced-security-and-optimization/audit-and-incident-response.md
+  constitutions:
+    - constitutions/core.yaml
+    - constitutions/sui-safety.yaml
+execution_gates:
+  before:
+    - "Write the solvency, authorization, oracle freshness, and slippage assumptions."
+    - "Identify pause, upgrade, and emergency authority."
+    - "Record foundational financial invariants in the checksum."
+  during:
+    - "Do not optimize away value-conservation checks."
+    - "Do not weaken oracle deviation or freshness checks without audit escalation."
+    - "Do not remove emergency controls without governance rationale."
+  after:
+    - "Run available tests covering value movement and failure cases."
+    - "Checksum drift must be none or low before audit review."
+    - "Require audit-agent review before final acceptance."
+review_required:
+  - audit
+  - architecture
+  - move

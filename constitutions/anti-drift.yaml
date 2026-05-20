@@ -1,0 +1,51 @@
+schema_version: 1
+id: anti-drift-constitution
+layer: L4
+purpose: "Long-horizon drift prevention for extended coding sessions and multi-agent workflows."
+constraints:
+  - id: refresh-before-large-edit
+    type: cognitive
+    rule: "Before a large edit after significant context accumulation, refresh active commitments, invariants, rejected patterns, and the current harness."
+    prevents: "Architectural amnesia after long conversations."
+  - id: summarize-active-intent
+    type: cognitive
+    rule: "Before editing a boundary file, restate the governing architectural intent in one or two sentences."
+    prevents: "Mechanically correct changes that violate original intent."
+  - id: no-untracked-policy
+    type: behavioral
+    rule: "Do not introduce new mandatory behavior in prose unless it is represented in L0, a harness, a constitution, or a review contract."
+    prevents: "Policy hidden in documentation."
+  - id: checksum-before-completion
+    type: cognitive
+    rule: "Before final review, compare the active checksum against changed files, touched invariants, and freshness flags."
+    prevents: "Silent reinterpretation of architectural intent."
+  - id: stale-cognition-is-not-authority
+    type: cognitive
+    rule: "Do not rely on `refresh_required`, `volatile`, deprecated, or superseded cognition as current authority without refresh or replacement."
+    prevents: "Cognition instability from stale assumptions."
+  - id: compression-must-preserve-critical-truth
+    type: cognitive
+    rule: "Compressed context may omit detail, but it must preserve critical cognition, foundational invariants, and forbidden regressions relevant to the route."
+    prevents: "Low-token prompts that erase architectural intent."
+  - id: snapshot-reasoning-shape-only
+    type: behavioral
+    rule: "Reasoning snapshots preserve options, constraints, tradeoffs, and assumptions, not verbose reasoning transcripts."
+    prevents: "Reasoning snapshot bloat."
+  - id: budget-before-expansion
+    type: cognitive
+    rule: "Before expanding context, check the active cognition budget and prefer IDs plus one-line meanings."
+    prevents: "Context saturation and cognition bloat."
+  - id: recover-before-continuing
+    type: behavioral
+    rule: "For medium-or-higher drift events, run the recovery flow before continuing implementation."
+    prevents: "Cascading cognition instability."
+  - id: humans-own-foundational-intent
+    type: behavioral
+    rule: "Do not weaken human-anchored commitments, trust assumptions, or foundational invariants without human override."
+    prevents: "Agents silently taking architectural authority."
+flash_notes:
+  - "Gemini Flash should receive smaller, sharper injections and more frequent L0 refreshes."
+  - "Avoid asking Flash to infer constraints from long RFC prose when a harness can name the rule directly."
+  - "Use checksum IDs and invariant tiers in prompts instead of broad architecture summaries."
+  - "Use compressed contexts as the default Flash injection surface, expanding only critical or high-weight items."
+  - "Apply the Gemini Flash budget before expanding snapshots, conflicts, or source files."

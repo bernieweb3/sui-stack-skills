@@ -1,0 +1,64 @@
+schema_version: 1
+layer: L0
+purpose: "Human-readable session-level coherence checksums for detecting architectural drift."
+usage: "Create or update one checksum at task start, refresh after major pivots, and finalize before review."
+checksum_fields:
+  active_commitments: "Commitment IDs the session must preserve."
+  active_invariants: "Invariant IDs currently governing the task."
+  compressed_context: "Compressed context ID used for injection."
+  reasoning_snapshot: "Snapshot ID used to preserve reasoning shape."
+  touched_invariants: "Invariant IDs affected by the current change."
+  freshness_flags: "Cognition items whose freshness status affects runtime confidence."
+  supersession_flags: "Any active item that references or conflicts with superseded cognition."
+  potential_conflicts: "Specific contradictions, reinterpretations, or erosion risks noticed during the task."
+  drift_metrics: "Metrics updated or reviewed during the task."
+  drift_assessment: "none | low | medium | high"
+  next_refresh_trigger: "When the checksum should be regenerated."
+
+checksums:
+  - id: framework-stabilization-session
+    status: active
+    owner: architecture
+    created_at: "2026-05-20"
+    updated_at: "2026-05-20"
+    applies_to:
+      - cognition/
+      - runtime/
+      - harnesses/
+      - constitutions/
+      - review/
+      - agent_roles/
+    cognitive_checksum:
+      compressed_context: framework-core-compressed
+      reasoning_snapshot: cognition-stability-minimalism
+      active_commitments:
+        - minimum-viable-cognition
+        - l0-before-retrieval
+        - skills-are-knowledge-not-policy
+      active_invariants:
+        - no-commitment-loss
+        - no-policy-hidden-in-prose
+      touched_invariants:
+        - no-commitment-loss
+      freshness_flags:
+        - id: minimum-viable-cognition
+          freshness: stable
+          action: "no refresh needed during normal refactors"
+        - id: sdk-versioning
+          freshness: refresh_required
+          action: "refresh only when SDK/API guidance is edited"
+      supersession_flags:
+        - "No active contradiction detected."
+      potential_conflicts:
+        - "Checksum and lifecycle additions must not become a policy runtime."
+      drift_metrics:
+        - architectural-consistency-score
+        - cognition-entropy-growth
+      drift_assessment: low
+      next_refresh_trigger: "Before final review or if a new L0 status transition is introduced."
+
+validation_flow:
+  - "At task start, list active commitments and invariants expected to govern the task."
+  - "During the task, add touched invariants and potential conflicts."
+  - "Before final review, compare the checksum against changed files and review contracts."
+  - "If drift_assessment is medium or high, pause and resolve the conflict before claiming completion."

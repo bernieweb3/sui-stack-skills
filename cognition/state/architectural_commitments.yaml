@@ -1,0 +1,87 @@
+schema_version: 1
+layer: L0
+purpose: "Persistent architectural commitments that future agents must preserve."
+commitments:
+  - id: minimum-viable-cognition
+    status: active
+    freshness: stable
+    crystallization: decision_log_required
+    owner: architecture
+    scope:
+      - cognition/
+      - runtime/
+      - harnesses/
+      - constitutions/
+    commitment: "The framework remains a lightweight cognition system, not an autonomous orchestration platform."
+    rationale: "The success metric is reduced architectural drift across long coding sessions, not more structure."
+    preserves:
+      - "Markdown and YAML remain the primary operational formats."
+      - "Runtime logic stays inspectable and manually invokable."
+      - "No symbolic cognition graph or giant policy engine is introduced without a new decision."
+    last_reviewed: "2026-05-20"
+
+  - id: l0-before-retrieval
+    status: active
+    freshness: stable
+    crystallization: decision_log_required
+    owner: architecture
+    scope:
+      - cognition/state/
+      - runtime/
+    commitment: "Architectural commitments and invariants are loaded before broad skill retrieval for substantial tasks."
+    rationale: "Retrieval can provide facts, but it does not preserve intent. L0 gives the agent the commitments that govern which facts matter."
+    preserves:
+      - "Agents remember why decisions exist before choosing implementation patterns."
+      - "Long-horizon work resists semantic drift."
+    last_reviewed: "2026-05-20"
+
+  - id: sui-object-first-design
+    status: active
+    freshness: foundational
+    crystallization: decision_log_required
+    owner: move
+    scope:
+      - skills/domain/sui/
+      - harnesses/move.yaml
+      - harnesses/ptb.yaml
+    commitment: "Sui systems are designed around object ownership, explicit capabilities, and PTB atomicity before account-style assumptions."
+    rationale: "The inherited Sui skill material consistently treats object-centric design, capabilities, and PTBs as core safety boundaries."
+    preserves:
+      - "Capability-based access control."
+      - "Explicit ownership transfer and shared-object contention awareness."
+      - "Atomic transaction reasoning for Move and frontend transaction flows."
+    last_reviewed: "2026-05-20"
+
+  - id: skills-are-knowledge-not-policy
+    status: active
+    freshness: stable
+    crystallization: decision_log_required
+    owner: planner
+    scope:
+      - skills/
+      - constitutions/
+      - harnesses/
+    commitment: "Skills remain knowledge modules; behavioral constraints live in constitutions, harnesses, review contracts, and L0 state."
+    rationale: "Conflating reference knowledge with mandatory behavior makes agents over-read and under-follow the actual constraints."
+    preserves:
+      - "Skills stay composable."
+      - "Constitutions carry non-negotiable reasoning constraints."
+      - "Harnesses carry task-local execution gates."
+    last_reviewed: "2026-05-20"
+
+  - id: lifecycle-semantics-stay-lightweight
+    status: active
+    freshness: stable
+    crystallization: decision_log_required
+    owner: architecture
+    scope:
+      - cognition/state/lifecycle_policy.yaml
+      - cognition/state/cognitive_checksums.yaml
+      - runtime/
+    commitment: "Checksum, freshness, supersession, and crystallization semantics remain human-readable runtime aids, not a policy engine."
+    rationale: "The new stability mechanisms should reduce drift without increasing framework bureaucracy beyond what agents can actually follow."
+    preserves:
+      - "One lifecycle policy file instead of many tiny rule files."
+      - "Checksums remain semantic summaries, not cryptographic proofs."
+      - "Status transitions remain decision-backed but lightweight."
+    last_reviewed: "2026-05-20"

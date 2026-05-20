@@ -1,0 +1,40 @@
+schema_version: 1
+id: move-harness
+layer: L3
+applies_when:
+  - "Writing or refactoring Sui Move modules."
+  - "Changing object ownership, capabilities, shared objects, package upgrades, or Move tests."
+load:
+  cognitive_state:
+    - cognition/state/architectural_commitments.yaml#sui-object-first-design
+    - cognition/state/invariants.yaml#no-sui-account-model-drift
+    - cognition/state/lifecycle_policy.yaml
+    - cognition/state/cognitive_checksums.yaml
+    - cognition/state/forbidden_reversions.yaml#do-not-remove-capability-first-move-guidance
+  skills:
+    - skills/domain/sui/sui-stack-development/sui-move-smart-contract.md
+    - skills/implementation/engineering/common-skills/security-fundamentals.md
+  constitutions:
+    - constitutions/core.yaml
+    - constitutions/sui-safety.yaml
+execution_gates:
+  before:
+    - "Identify owned, shared, immutable, wrapped, and capability objects."
+    - "State which functions are public, public(package), entry, or internal."
+    - "State package upgrade and admin capability assumptions."
+    - "Record foundational invariant focus in the task checksum."
+  during:
+    - "Do not introduce sender-address authorization as the default access control."
+    - "Do not convert owned-object flows to shared objects without a contention rationale."
+    - "Preserve Move 2024 syntax unless the target package explicitly requires otherwise."
+  after:
+    - "Run available Move tests or document why they cannot run."
+    - "Validate no foundational invariant weakened."
+    - "Update L0 if the object model, capability model, or security invariant changes."
+review_required:
+  - audit
+  - architecture
+forbidden_patterns:
+  - "Hardcoded admin sender checks as default authorization."
+  - "Unexplained shared object introduction."
+  - "Gas optimization that weakens authorization or value conservation."

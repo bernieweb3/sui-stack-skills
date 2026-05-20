@@ -1,0 +1,31 @@
+schema_version: 1
+id: sui-safety-constitution
+layer: L4
+purpose: "Sui-specific safety constraints for Move, PTB, wallet, and financial workflows."
+constraints:
+  - id: object-model-explicit
+    type: cognitive
+    rule: "Every non-trivial Sui design must make object ownership and shared-object contention explicit."
+    prevents: "Ethereum-account mental model drift."
+  - id: capability-authority
+    type: behavioral
+    rule: "Privileged actions default to capability objects or governance-controlled authority, not raw sender checks."
+    prevents: "Authorization fragility."
+  - id: atomicity-preservation
+    type: behavioral
+    rule: "Dependent value movement must stay in the same PTB unless a decision documents the split."
+    prevents: "Partial execution and user fund risk."
+  - id: financial-invariant-first
+    type: cognitive
+    rule: "When funds move, reason from conservation and authorization before performance."
+    prevents: "Optimization-driven loss of safety checks."
+  - id: foundational-sui-invariants-block
+    type: behavioral
+    rule: "Capability enforcement, Sui object model preservation, and PTB atomicity are foundational invariants; weakening them blocks completion."
+    prevents: "Unsafe simplification in Move/PTB-heavy tasks."
+drift_prevention:
+  - "Ask: Which Sui object is the source of truth?"
+  - "Ask: Which capability authorizes this action?"
+  - "Ask: Which operations must be atomic?"
+  - "Ask: Which invariant would fail if this refactor is wrong?"
+  - "Ask: Does the checksum still match the implementation?"
