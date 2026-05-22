@@ -9,7 +9,6 @@ The cognition runtime exists to support skill activation. It should not be the u
 ```text
 sui-stack-skills/
   SKILL.md
-  AGENT.md
   AGENTS.md
   package.json
   skills/

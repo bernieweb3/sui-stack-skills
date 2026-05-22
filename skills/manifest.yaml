@@ -13,7 +13,6 @@ compatible_agents:
 install_hint: "npx skills add bernieweb3/sui-stack-skills"
 primary_entrypoints:
   root: SKILL.md
-  agent: AGENT.md
   agents: AGENTS.md
   manifest: skills/manifest.yaml
   activation_schema: skills/activation.schema.yaml
@@ -58,7 +57,7 @@ internal_substrate_policy:
   user_facing: false
   exposed_by_default:
     - SKILL.md
-    - AGENT.md
+    - AGENTS.md
     - skills/manifest.yaml
     - skills/*/SKILL.md
   hidden_by_default:

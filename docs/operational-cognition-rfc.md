@@ -30,7 +30,6 @@ Agents should not ask users to manually orchestrate L0/L1/L2/L3 layers.
 ```text
 sui-stack-skills/
   SKILL.md
-  AGENT.md
   AGENTS.md
   package.json
   LICENSE

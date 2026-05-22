@@ -7,7 +7,6 @@
   "type": "module",
   "files": [
     "SKILL.md",
-    "AGENT.md",
     "AGENTS.md",
     "skills",
     "cognition",
@@ -31,13 +30,13 @@
   ],
   "exports": {
     "./manifest": "./skills/manifest.yaml",
-    "./agent": "./AGENT.md",
+    "./agent": "./AGENTS.md",
     "./agents": "./AGENTS.md",
     "./skill": "./SKILL.md"
   },
   "suiStackSkills": {
     "manifest": "skills/manifest.yaml",
-    "agent": "AGENT.md",
+    "agent": "AGENTS.md",
     "primarySkills": [
       "move_core",
       "ptb_runtime",

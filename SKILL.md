@@ -27,7 +27,7 @@ npx skills add bernieweb3/sui-stack-skills
 Equivalent loaders can read:
 
 - `SKILL.md`
-- `AGENT.md`
+- `AGENTS.md`
 - `skills/manifest.yaml`
 - `skills/*/SKILL.md`
 
@@ -83,9 +83,9 @@ Agents should load these only when a selected skill references them.
 
 ## Agent Loading
 
-For Claude, Antigravity, Codex, OpenCode/OpenClaw, and AGENT.md-style systems:
+For Claude, Antigravity, Codex, OpenCode/OpenClaw, and AGENTS.md-style systems:
 
-1. Read [AGENT.md](AGENT.md).
+1. Read [AGENTS.md](AGENTS.md).
 2. Read [skills/manifest.yaml](skills/manifest.yaml).
 3. Select the narrowest matching skill.
 4. Follow that skill's activation contract.
