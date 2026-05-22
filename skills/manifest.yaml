@@ -1,0 +1,69 @@
+schema_version: 1
+name: sui-stack-skills
+display_name: "Sui Stack Skills"
+version: "3.0.0"
+description: "Skills-first operational cognition for Sui, Move, PTB, wallet UX, and long-horizon coding agents."
+compatible_agents:
+  - claude-skills
+  - antigravity
+  - codex
+  - opencode
+  - openclaw
+  - agent-md
+install_hint: "npx skills add bernieweb3/sui-stack-skills"
+primary_entrypoints:
+  root: SKILL.md
+  agent: AGENT.md
+  agents: AGENTS.md
+  manifest: skills/manifest.yaml
+  activation_schema: skills/activation.schema.yaml
+default_activation:
+  compressed_context:
+    - cognition/state/compressed_context.yaml#framework-core-compressed
+  invariants:
+    - cognition/state/invariants.yaml#no-commitment-loss
+  runtime_profile:
+    - runtime/flash_context_profile.yaml
+  hidden_substrate:
+    - cognition/
+    - harnesses/
+    - constitutions/
+    - runtime/
+    - review/
+skill_catalog:
+  - id: move_core
+    path: skills/move_core/SKILL.md
+    description: "Sui Move object, capability, and package-safety work."
+  - id: ptb_runtime
+    path: skills/ptb_runtime/SKILL.md
+    description: "Programmable transaction block design and atomic transaction flows."
+  - id: wallet_ux
+    path: skills/wallet_ux/SKILL.md
+    description: "Wallet connection, signing, transaction finality, and frontend UX."
+  - id: security_audit
+    path: skills/security_audit/SKILL.md
+    description: "Security, financial safety, review, and incident readiness."
+  - id: sui_architecture
+    path: skills/sui_architecture/SKILL.md
+    description: "Sui dApp architecture, infrastructure, and system design."
+  - id: cognition_stability
+    path: skills/cognition_stability/SKILL.md
+    description: "Internal cognition stabilization for long-horizon framework changes."
+composition_rules:
+  - "Activate the narrowest skill that matches the task."
+  - "Compose at most three skills by default for Gemini Flash."
+  - "If two skills conflict, keep foundational invariants and human anchors visible."
+  - "Expand hidden cognition only when the selected skill contract references it."
+internal_substrate_policy:
+  user_facing: false
+  exposed_by_default:
+    - SKILL.md
+    - AGENT.md
+    - skills/manifest.yaml
+    - skills/*/SKILL.md
+  hidden_by_default:
+    - cognition/
+    - harnesses/
+    - constitutions/
+    - runtime/
+    - review/

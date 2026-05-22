@@ -1,12 +1,14 @@
-# L0 Cognitive State Layer
+# Internal Cognition Substrate
 
-L0 is the persistent architectural cognition layer for this repository.
+This folder is hidden infrastructure under skills.
 
-It is not a notes folder. It records commitments that future coding agents must preserve unless an explicit decision updates or retires them. Skills explain how to do work; L0 records what must remain true and why.
+Agents should not start here by default. Start with `skills/manifest.yaml` and `skills/*/SKILL.md`; load cognition only when a skill activation contract references it.
 
-## Load Order
+L0 records commitments that future coding agents must preserve unless an explicit decision updates or retires them. Skills explain what work is being activated; L0 records what must remain true and why.
 
-Before any substantial task, an agent should load:
+## Skill-Triggered Load Order
+
+When a selected skill references internal cognition, load:
 
 1. `cognition/state/architectural_commitments.yaml`
 2. `cognition/state/invariants.yaml`
@@ -17,7 +19,7 @@ Before any substantial task, an agent should load:
 7. `cognition/state/unresolved_tradeoffs.yaml`
 8. The most recent relevant file in `cognition/state/decision_log/`
 
-For small tasks, load only the commitment and invariant files plus any harness named by `runtime/task_router.yaml`.
+For small tasks, load only the compressed context, invariants, and harness named by the active skill.
 
 ## Update Rule
 

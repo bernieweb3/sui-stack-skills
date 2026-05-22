@@ -1,0 +1,40 @@
+schema_version: 1
+purpose: "Filesystem-native schema for skill activation contracts."
+skill:
+  id: "stable_skill_id"
+  name: "Human readable name"
+  version: "semver"
+  status: active
+  description: "One-sentence activation purpose."
+  triggers:
+    paths:
+      - "glob/or/path"
+    keywords:
+      - "semantic keyword"
+  activates:
+    cognition:
+      - "cognition/state/compressed_context.yaml#context-id"
+    invariants:
+      - "cognition/state/invariants.yaml#invariant-id"
+    harnesses:
+      - "harnesses/example.yaml"
+    constitutions:
+      - "constitutions/core.yaml"
+    review_contracts:
+      - "review/review_contracts.yaml#contract-id"
+  runtime:
+    profile: gemini_flash
+    budget: gemini_flash
+    visibility_scope: "agent-role-id"
+    compression_priority: critical | high | medium | low
+    checksum_required: true
+  dependencies:
+    required_skills:
+      - "other_skill_id"
+    optional_skills:
+      - "other_skill_id"
+  composition:
+    can_activate_with:
+      - "other_skill_id"
+    boundary_notes:
+      - "When to expand hidden cognition."

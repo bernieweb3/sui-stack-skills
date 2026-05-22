@@ -1,6 +1,8 @@
-# Minimum Viable Runtime
+# Hidden Runtime Semantics
 
-The runtime is a manual, lightweight loading and update protocol. It does not require a daemon, policy engine, vector database, or orchestration service.
+The runtime is hidden infrastructure activated by skills. It does not require a daemon, policy engine, vector database, or orchestration service.
+
+Agents should normally enter through `skills/manifest.yaml` and a selected `skills/*/SKILL.md` activation contract.
 
 ## Before Task
 

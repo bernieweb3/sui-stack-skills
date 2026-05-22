@@ -6,16 +6,48 @@ Owner: architecture
 
 ## Purpose
 
-Sui Stack Operational Cognition Framework turns the original Sui Stack Skills repository from a knowledge base into behavioral infrastructure for coding agents.
+Sui Stack Skills is a skills-first repository with hidden operational cognition for coding agents.
 
-The goal is not more structure. The goal is less architectural drift across long coding sessions.
+The goal is not more visible structure. The goal is skills-powered architectural coherence with minimal cognitive overhead.
+
+## Skills-First Principle
+
+The primary abstraction is `skills/`.
+
+The cognition runtime is supporting infrastructure. Users should activate skills such as `move_core`, `ptb_runtime`, or `wallet_ux`; those skills then activate cognition, invariants, harnesses, constitutions, runtime profiles, and review contracts.
+
+```yaml
+active_skills:
+  - move_core
+  - ptb_runtime
+  - wallet_ux
+```
+
+Agents should not ask users to manually orchestrate L0/L1/L2/L3 layers.
 
 ## Repository Tree
 
 ```text
 sui-stack-skills/
   SKILL.md
+  AGENT.md
+  AGENTS.md
+  package.json
   LICENSE
+  skills/
+    README.md
+    manifest.yaml
+    activation.schema.yaml
+    move_core/SKILL.md
+    ptb_runtime/SKILL.md
+    wallet_ux/SKILL.md
+    security_audit/SKILL.md
+    sui_architecture/SKILL.md
+    cognition_stability/SKILL.md
+    architecture/
+    domain/
+    implementation/
+    review/
   cognition/
     README.md
     schemas/
@@ -38,19 +70,6 @@ sui-stack-skills/
         2026-05-20-cognition-stability-semantics.md
         2026-05-20-compressed-cognition-runtime.md
         2026-05-20-cognition-resilience-policy.md
-  skills/
-    README.md
-    architecture/
-      project-preparation/
-      system-design/
-    domain/
-      infrastructure/
-      sui/
-    implementation/
-      engineering/
-      frontend/
-    review/
-      security-optimization/
   harnesses/
     README.md
     financial-safety.yaml
@@ -75,6 +94,7 @@ sui-stack-skills/
     README.md
     roles.yaml
   docs/
+    skills-first-architecture.md
     migration-map.md
     operational-cognition-rfc.md
 ```
@@ -83,13 +103,14 @@ sui-stack-skills/
 
 | Layer | Directory | Responsibility |
 | --- | --- | --- |
-| L0 Cognitive State | `cognition/state/` | Persistent architectural intent, invariants, rejected patterns, tradeoffs, decision history |
-| L1 Knowledge | `skills/` | Domain and implementation knowledge |
-| L2 Context Routing | `runtime/task_router.yaml` | Minimal task-to-harness routing |
-| L3 Execution Harness | `harnesses/` | Task-local execution gates |
-| L4 Constitutional | `constitutions/` | Behavioral and cognitive reasoning constraints |
-| L5 Review and Audit | `review/` | Completion contracts and safety review |
-| L6 Multi-Agent Coordination | `agent_roles/` | Authority boundaries and cognition synchronization |
+| Skill Interface | `skills/*/SKILL.md` | Primary activation surface |
+| Skill Manifest | `skills/manifest.yaml` | Agent discovery and composition metadata |
+| Hidden Cognitive State | `cognition/state/` | Persistent intent, invariants, compression, checksums, metrics |
+| Hidden Runtime | `runtime/` | Routing and model profiles activated by skills |
+| Hidden Harnesses | `harnesses/` | Task-local execution gates activated by skills |
+| Hidden Constitutions | `constitutions/` | Behavioral constraints activated by skills |
+| Hidden Review | `review/` | Completion contracts activated by skills |
+| Hidden Agent Roles | `agent_roles/` | Internal authority boundaries |
 
 ## Ownership Boundaries
 

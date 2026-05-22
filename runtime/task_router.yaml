@@ -1,5 +1,8 @@
 schema_version: 1
 layer: L2
+activation_mode: skills_first
+skill_manifest: skills/manifest.yaml
+skill_activation_schema: skills/activation.schema.yaml
 default_load:
   cognitive_state:
     - cognition/state/architectural_commitments.yaml

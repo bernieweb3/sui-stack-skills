@@ -1,0 +1,50 @@
+{
+  "name": "@bernieweb3/sui-stack-skills",
+  "version": "3.0.0",
+  "description": "Filesystem-native Sui skills with hidden operational cognition for coding agents.",
+  "license": "Apache-2.0",
+  "author": "Bernie Nguyen (BernieWeb3)",
+  "type": "module",
+  "files": [
+    "SKILL.md",
+    "AGENT.md",
+    "AGENTS.md",
+    "skills",
+    "cognition",
+    "harnesses",
+    "constitutions",
+    "runtime",
+    "review",
+    "agent_roles",
+    "docs",
+    "LICENSE"
+  ],
+  "keywords": [
+    "sui",
+    "move",
+    "skills",
+    "coding-agents",
+    "claude-skills",
+    "codex",
+    "antigravity",
+    "ptb"
+  ],
+  "exports": {
+    "./manifest": "./skills/manifest.yaml",
+    "./agent": "./AGENT.md",
+    "./agents": "./AGENTS.md",
+    "./skill": "./SKILL.md"
+  },
+  "suiStackSkills": {
+    "manifest": "skills/manifest.yaml",
+    "agent": "AGENT.md",
+    "primarySkills": [
+      "move_core",
+      "ptb_runtime",
+      "wallet_ux",
+      "security_audit",
+      "sui_architecture",
+      "cognition_stability"
+    ]
+  }
+}
